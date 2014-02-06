@@ -10,6 +10,32 @@ $(document).ready(function() {
  */
 function initializePage() {
 	console.log("Javascript connected!");
+	var anagram = anagrammedName($('#name').text());
+	if (anagram == "") {
+		anagram = "(" + anagrammize($('#name').text()) + ")";
+	} else {
+		anagram = "(" + anagram + ")";
+	}
+	$('.anagrammed').text(anagram);
+}
+
+function anagrammize(name) {
+	var str = name;
+	console.log(name);
+	for (var i = 0; i < name.length; i++) {
+		console.log('a');
+		var randomPos1 = Math.floor(Math.random() * name.length);
+		var randomPos2 = Math.floor(Math.random() * name.length);
+		console.log(randomPos1 + " " + randomPos2);
+		if (randomPos1 > randomPos2) {
+			str = str.substring(0, randomPos2) + str.charAt(randomPos1) + str.substring(randomPos2 + 1, randomPos1)
+						+ str.charAt(randomPos2) + str.substring(randomPos1 + 1);
+		} else if (randomPos2 > randomPos1) {
+			str = str.substring(0, randomPos1) + str.charAt(randomPos2) + str.substring(randomPos1 + 1, randomPos2)
+						+ str.charAt(randomPos1) + str.substring(randomPos2 + 1);
+		}
+	}
+	return str;
 }
 
 function anagrammedName(name) {
@@ -41,6 +67,6 @@ function anagrammedName(name) {
 	}
 	else {
 		console.log(name + " not known for anagramming.");
-		return name;
+		return "";
 	}
 }
